@@ -24,10 +24,10 @@ for filename in `ls -p $path` #`ls -Rp|tail -n +2`
 		# echo 'having a folder here'
 		newpath=`echo $filename|tr ':' '/'`
 		# echo $newpath
-		finder $path$newpath $search	
+		finder $path$newpath "$search"	
 		continue
 	fi
-	if cat $path$filename| grep $search -q
+	if cat $path$filename| grep -F "$search" -q
 		then
 		# echo 'match in:'
 		echo $path$filename
