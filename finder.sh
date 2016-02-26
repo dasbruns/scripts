@@ -7,13 +7,15 @@
 # e.g. /home/name/here/to/search/
 # 	AND
 # a search string to look for
-# e.g. lookingForYou
-# NOTE: redirect stderr by 2>null
-# e.g. finder /where/to/look/ whatFor 2>null
+# e.g. "looking For You"
+# give it -q flag if it should be quiet
+# will only print matching file names, not content
+# NOTE: redirect stderr by 2>/dev/null
+# e.g. finder /where/to/look/ whatFor 2>/dev/null
 
 path=$1
 search=$2
-# echo $path
+quiet=$3
 
 for filename in `ls -p $path` #`ls -Rp|tail -n +2` 
 	do
@@ -24,10 +26,10 @@ for filename in `ls -p $path` #`ls -Rp|tail -n +2`
 		# echo 'having a folder here'
 		newpath=`echo $filename|tr ':' '/'`
 		# echo $newpath
-		finder $path$newpath "$search"	
+		finder $path$newpath "$search" $quiet
 		continue
 	fi
-	if cat $path$filename| grep -F "$search" -q
+	if cat $path$filename| grep -F "$search" $quiet
 		then
 		# echo 'match in:'
 		echo $path$filename
