@@ -29,6 +29,11 @@ for filename in `ls -p $path` #`ls -Rp|tail -n +2`
 		finder $path$newpath "$search" $quiet
 		continue
 	fi
+	if [[ ${filename##*.} == *[oha]* ]]
+	then 
+		# echo "ignoring" $filename
+		continue
+	fi
 	if cat $path$filename| grep -F "$search" $quiet
 		then
 		# echo 'match in:'
